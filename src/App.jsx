@@ -18,20 +18,27 @@ function App() {
   const { url } = useSelector((state) => state.home);
   const dispatch = useDispatch();
 
-  const apiTesting = () => {
-    fetchDataFromApi("/movie/popular").then((res) => {
+  const fetchApiConfig = () => {
+    fetchDataFromApi("/configuration").then((res) => {
       console.log(res);
-      dispatch(getApiConfiguration(res));
+      /// url path already have slash (/) at the end so we do not need to add it in here
+      const url = {
+        backdrop: res.images.secure_base_url + "original",
+        poster: res.images.secure_base_url + "original",
+        profile: res.images.secure_base_url + "original",
+      };
+
+      dispatch(getApiConfiguration(url));
     });
   };
 
   useEffect(() => {
-    apiTesting();
+    fetchApiConfig();
   }, []);
 
   return (
     <BrowserRouter>
-      <Header />
+      {/* <Header /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:mediaType/:id" element={<Detail />} />
@@ -39,7 +46,7 @@ function App() {
         <Route path="/explore/:mediaType" element={<Explore />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }
