@@ -6,7 +6,7 @@ import { fetchDataFromApi } from "./utils/api";
 import { getApiConfiguration } from "./store/homeSlice";
 getApiConfiguration;
 
-import Header from "./pages/home/Home";
+import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import Home from "./pages/home/Home";
 import Detail from "./pages/details/Details";
@@ -38,7 +38,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* <Header /> */}
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:mediaType/:id" element={<Detail />} />
