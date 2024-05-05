@@ -6,10 +6,11 @@ import useFetch from "../../../hooks/useFetch";
 import Carousel from "../../../components/carousel/Carousel";
 useFetch;
 
-const Popular = () => {
+const TopRated = () => {
   const [endPoint, setEndPoint] = useState("movie");
 
-  const { data, loading } = useFetch(`/${endPoint}/popular`);
+  // Reference:  https://developer.themoviedb.org/reference/movie-top-rated-list
+  const { data, loading } = useFetch(`/${endPoint}/top_rated`);
 
   const onTabChange = (tab) => {
     console.log(tab);
@@ -19,7 +20,7 @@ const Popular = () => {
   return (
     <div className="carouselSection">
       <ContentWrapper>
-        <span className="carouselTitle">What&#39;s Popular</span>
+        <span className="carouselTitle">Top Rated</span>
         <SwitchTabs data={["Movies", "TV Shows"]} onTabChange={onTabChange} />
       </ContentWrapper>
 
@@ -28,4 +29,4 @@ const Popular = () => {
   );
 };
 
-export default Popular;
+export default TopRated;
