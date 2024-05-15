@@ -33,12 +33,10 @@ const DetailsBanner = ({ video, crew }) => {
 
   const _genres = data?.genres?.map((g) => g?.id);
 
-  console.log(crew);
-
-  const director = crew?.filter(
+  const director = crew.filter(
     (f) => f.job === "Director" || f.job === "Assistant Director"
   );
-  const writer = crew?.filter(
+  const writer = crew.filter(
     (f) =>
       f.job === "Screenplay" ||
       f.job === "Script" ||
@@ -50,7 +48,7 @@ const DetailsBanner = ({ video, crew }) => {
       f.job === "Theatre Play"
   );
 
-  const producer = crew?.filter(
+  const producer = crew.filter(
     (f) =>
       f.job === "Producer" ||
       f.job === "Executive Producer" ||
@@ -87,10 +85,10 @@ const DetailsBanner = ({ video, crew }) => {
                   <div className="right">
                     <div className="title">
                       {`${
-                        data.name || data.title || data.original_name
+                        data?.name || data?.title || data?.original_name
                       } (${dayjs(data?.release_date).format("YYYY")})  `}
                     </div>
-                    <div className="subtitle">{data.tagline}</div>
+                    <div className="subtitle">{data?.tagline}</div>
                     <Genres data={_genres} />
 
                     <div className="row">

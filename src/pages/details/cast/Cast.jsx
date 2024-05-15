@@ -9,8 +9,6 @@ import avatar from "../../../assets/avatar.png";
 const Cast = ({ cast, loading }) => {
   const { url } = useSelector((state) => state.home);
 
-  console.log(cast);
-
   const skeleton = () => {
     return (
       <div className="skItem">
@@ -28,15 +26,15 @@ const Cast = ({ cast, loading }) => {
         {!loading ? (
           <div className="listItems">
             {cast?.map((item) => {
-              let imgUrl = item.profile_path
-                ? url.profile + item.profile_path
+              let imgUrl = item?.profile_path
+                ? url?.profile + item?.profile_path
                 : avatar;
               return (
                 <div className="listItem" key={item?.id}>
                   <div className="profileImg">
                     <Img
                       src={imgUrl}
-                      alt={item.original_name || item?.character}
+                      alt={item?.original_name || item?.character}
                     />
                   </div>
                   <p className="name">{item?.name}</p>
