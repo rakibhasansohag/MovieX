@@ -77,8 +77,8 @@ const Carousel = ({ data, loading, endPoint, title }) => {
               //   : PosterFallback;
 
               const posterUrl =
-                item.poster_path && url.poster
-                  ? url.poster + item.poster_path
+                item?.poster_path && url?.poster
+                  ? url?.poster + item?.poster_path
                   : PosterFallback;
 
               return (
