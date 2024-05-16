@@ -33,10 +33,10 @@ const DetailsBanner = ({ video, crew }) => {
 
   const _genres = data?.genres?.map((g) => g?.id);
 
-  const director = crew.filter(
-    (f) => f.job === "Director" || f.job === "Assistant Director"
+  const director = crew?.filter(
+    (f) => f?.job === "Director" || f?.job === "Assistant Director"
   );
-  const writer = crew.filter(
+  const writer = crew?.filter(
     (f) =>
       f.job === "Screenplay" ||
       f.job === "Script" ||
@@ -48,7 +48,7 @@ const DetailsBanner = ({ video, crew }) => {
       f.job === "Theatre Play"
   );
 
-  const producer = crew.filter(
+  const producer = crew?.filter(
     (f) =>
       f.job === "Producer" ||
       f.job === "Executive Producer" ||
