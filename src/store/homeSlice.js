@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 export const homeSlice = createSlice({
   name: "home",
   initialState: {
-    url: null,
-    genres: null,
+    url: {},
+    genres: {},
   },
   reducers: {
     getApiConfiguration: (state, action) => {

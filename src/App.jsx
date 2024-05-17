@@ -20,7 +20,6 @@ function App() {
 
   const fetchApiConfig = () => {
     fetchDataFromApi("/configuration").then((res) => {
-      console.log(res);
       /// url path already have slash (/) at the end so we do not need to add it in here
       const url = {
         backdrop: res.images.secure_base_url + "original",
@@ -48,7 +47,6 @@ function App() {
     });
 
     const data = await Promise.all(promises);
-    console.log(data);
     data.map(({ genres }) => {
       return genres.map((item) => (allGenres[item.id] = item));
     });

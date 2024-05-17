@@ -1,9 +1,12 @@
 import { useSelector } from "react-redux";
 
 import "./genres.scss";
+import Spinner from "../spinner/Spinner";
 
 const Genres = ({ data }) => {
   const { genres } = useSelector((state) => state.home);
+
+  if (!genres) return <Spinner />;
 
   return (
     <div className="genres">
