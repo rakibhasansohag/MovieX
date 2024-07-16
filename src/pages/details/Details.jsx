@@ -7,12 +7,19 @@ import VideosSection from './videoSection/VideoSection';
 import Similar from './carousels/Similar';
 import Recommendation from './carousels/Recommendation';
 import DownloadComponent from '../../components/download';
+import PageNotFound from '../404/PageNotFound';
 function Details() {
 	const { id, mediaType } = useParams();
+
 	const { data, loading } = useFetch(`/${mediaType}/${id}/videos`);
 	const { data: credits, loading: creditsLoading } = useFetch(
 		`/${mediaType}/${id}/credits`,
 	);
+
+	if (!data || !credits) {
+		return <PageNotFound />;
+	}
+
 	return (
 		<div>
 			<DetailsBanner video={data?.results?.[0]} crew={credits?.crew} />
