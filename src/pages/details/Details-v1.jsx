@@ -8,7 +8,6 @@ import Similar from './carousels/Similar';
 import Recommendation from './carousels/Recommendation';
 import DownloadComponent from '../../components/download';
 import PageNotFound from '../404/PageNotFound';
-
 function Details() {
 	const { id, mediaType } = useParams();
 
@@ -30,7 +29,11 @@ function Details() {
 		<div>
 			<DetailsBanner video={data?.results?.[0]} crew={credits?.crew} />
 			<Cast cast={credits?.cast} loading={creditsLoading} />
-			<VideosSection data={data} loading={loading} video={data?.results?.[0]} />
+			<VideosSection
+				data={credits}
+				loading={loading}
+				video={data?.results?.[0]}
+			/>
 			<DownloadComponent data={credits} loading={loading} />
 			<Similar mediaType={mediaType} id={id} />
 			<Recommendation mediaType={mediaType} id={id} />

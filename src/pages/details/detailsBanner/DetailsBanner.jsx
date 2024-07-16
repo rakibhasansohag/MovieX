@@ -26,6 +26,8 @@ const DetailsBanner = ({ video, crew }) => {
 	const { id, mediaType } = useParams();
 	const { data, loading } = useFetch(`/${mediaType}/${id}`);
 
+	console.log(data);
+
 	const name = data?.name || data?.title || data?.original_name;
 
 	const { url } = useSelector((state) => state.home);
@@ -100,7 +102,7 @@ const DetailsBanner = ({ video, crew }) => {
 									</div>
 									<div className='right'>
 										<div className='title'>
-											{`${{ name }} (${dayjs(data?.release_date).format(
+											{`${name} (${dayjs(data?.release_date).format(
 												'YYYY',
 											)})  `}
 											<FaCopy className='button' onClick={handleCopy} />

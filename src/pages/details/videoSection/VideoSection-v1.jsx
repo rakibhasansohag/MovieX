@@ -8,7 +8,7 @@ import { PlayIcon } from '../PlayIcon';
 import VideoPopup from '../../../components/videoPopup/VideoPopup';
 import Img from '../../../components/lazyLoadImage/Img';
 
-const VideosSection = ({ data, loading, video }) => {
+const VideosSection = ({ data, loading, video: orVideo }) => {
 	const [show, setShow] = useState(false);
 	const [videoId, setVideoId] = useState(null);
 
@@ -22,47 +22,30 @@ const VideosSection = ({ data, loading, video }) => {
 		);
 	};
 
-	const handleVideoClick = (videoKey) => {
-		setVideoId(videoKey);
-		setShow(true);
-	};
-
 	return (
 		<div className='videosSection'>
 			<ContentWrapper>
 				<div className='sectionHeading'>Official Videos</div>
 				{!loading ? (
 					<div className='videos'>
-						{data?.results?.length > 0
-							? data.results.map((video) => (
-									<div
-										onClick={() => handleVideoClick(video.key)}
-										key={video.id}
-										className='videoItem'
-									>
-										<div className='videoThumbnail'>
-											<Img
-												src={`https://img.youtube.com/vi/${video.key}/mqdefault.jpg`}
-											/>
-											<PlayIcon />
-										</div>
-										<p className='videoTitle'>{video?.name}</p>
-									</div>
-						))
-							: video && (
-									<div
-										onClick={() => handleVideoClick(video.key)}
-										className='videoItem'
-									>
-										<div className='videoThumbnail'>
-											<Img
-												src={`https://img.youtube.com/vi/${video.key}/mqdefault.jpg`}
-											/>
-											<PlayIcon />
-										</div>
-										<p className='videoTitle'>{video?.name}</p>
-									</div>
-)}
+						{data?.results?.map((video) => (
+							<div
+								onClick={() => {
+									setVideoId(video.key);
+									setShow(true);
+								}}
+								key={video.id}
+								className='videoItem'
+							>
+								<div className='videoThumbnail'>
+									<Img
+										src={`https://img.youtube.com/vi/${video.key}/mqdefault.jpg`}
+									/>
+									<PlayIcon />
+								</div>
+								<p className='videoTitle'>{video?.name}</p>
+							</div>
+						))}
 					</div>
 				) : (
 					<div className='videoSkeleton'>
@@ -93,7 +76,9 @@ VideosSection.propTypes = {
 			}),
 		),
 	}),
+
 	loading: PropTypes.bool.isRequired,
+
 	video: PropTypes.object,
 };
 
