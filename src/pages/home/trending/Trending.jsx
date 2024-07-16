@@ -12,7 +12,7 @@ const Trending = () => {
   const { data, loading } = useFetch(`/trending/all/${endPoint}`);
 
   const onTabChange = (tab) => {
-    console.log(tab);
+    // console.log(tab);
     setEndPoint(tab === "Day" ? "day" : "week");
   };
 
