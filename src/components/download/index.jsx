@@ -9,19 +9,10 @@ const DownloadComponent = () => {
 	const name = data?.name || data?.title || data?.original_name;
 	const _genres = data?.genres?.map((g) => g.name.toLowerCase());
 
-	console.log(_genres);
-
-	// console.log(data);
-
-	const handleCopy = () => {
-		navigator.clipboard.writeText(name);
-		alert('Show name copied to clipboard!');
-	};
-
 	const RedirectToKayoAnime = () => {
 		const searchQuery = encodeURIComponent(name);
 		window.open(
-			`https://www.google.com/search?q=${searchQuery} kayoanime`,
+			`https://www.google.com/search?q=${searchQuery}+kayoanime`,
 			'_blank',
 		);
 	};
@@ -32,11 +23,7 @@ const DownloadComponent = () => {
 
 	return (
 		<div className='download-component'>
-			<div>
-				<button disabled={loading} onClick={handleCopy} className='link-button'>
-					Copy Show Name
-				</button>
-			</div>
+			<div></div>
 			{_genres && _genres.includes('animation') && (
 				<div>
 					<button

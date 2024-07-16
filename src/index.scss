@@ -62,3 +62,50 @@ body {
 		}
 	}
 }
+
+// Toaster
+.toaster {
+	position: fixed;
+	top: 50px;
+	right: 3%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	// background-color: rgba(0, 0, 0, 0.8);
+	background-color: #da2f68;
+	color: white;
+	padding: 15px 25px;
+	border-radius: 8px;
+	z-index: 999;
+	animation: slideIn 0.5s ease forwards, fadeOut 0.5s 2.5s forwards;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); // Add shadow for depth
+}
+
+@keyframes slideIn {
+	0% {
+		opacity: 0;
+		transform: translateX(50px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+.button {
+	cursor: pointer;
+	color: var(--pink-light);
+	transition: background-color 0.3s ease;
+	&:hover {
+		color: var(--pink);
+	}
+}

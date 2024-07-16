@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
+import { FaCopy } from 'react-icons/fa';
 
 import './detailsBanner.scss';
 
@@ -18,11 +19,14 @@ import VideoPopup from '../../../components/videoPopup/VideoPopup.jsx';
 const DetailsBanner = ({ video, crew }) => {
 	const [show, setShow] = useState(false);
 	const [videoId, setVideoId] = useState(null);
+	const [showToaster, setShowToaster] = useState(false);
 
 	// console.log(video);
 
 	const { id, mediaType } = useParams();
 	const { data, loading } = useFetch(`/${mediaType}/${id}`);
+
+	const name = data?.name || data?.title || data?.original_name;
 
 	const { url } = useSelector((state) => state.home);
 
@@ -61,10 +65,21 @@ const DetailsBanner = ({ video, crew }) => {
 			f.job === 'Co-Producer',
 	);
 
+	const handleCopy = () => {
+		navigator.clipboard.writeText(name);
+		setShowToaster(true);
+		setTimeout(() => setShowToaster(false), 3000);
+	};
+
 	return (
 		<div className='detailsBanner'>
 			{!loading ? (
 				<>
+					{showToaster && (
+						<div className='toaster'>
+							<span> {name} copied to clipboard!</span>
+						</div>
+					)}
 					{!!data && (
 						<React.Fragment>
 							<div className='backdrop-img'>
@@ -85,9 +100,10 @@ const DetailsBanner = ({ video, crew }) => {
 									</div>
 									<div className='right'>
 										<div className='title'>
-											{`${
-												data?.name || data?.title || data?.original_name
-											} (${dayjs(data?.release_date).format('YYYY')})  `}
+											{`${{ name }} (${dayjs(data?.release_date).format(
+												'YYYY',
+											)})  `}
+											<FaCopy className='button' onClick={handleCopy} />
 										</div>
 										<div className='subtitle'>{data?.tagline}</div>
 										<Genres data={_genres} />
