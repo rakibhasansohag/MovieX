@@ -1,0 +1,41 @@
+.download-component {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+
+	.copy-button button,
+	.link-button {
+		padding: 10px 20px;
+		border: none;
+		border-radius: 8px;
+		cursor: pointer;
+		color: white;
+		background-color: var(--pink); /* Example color */
+		font-size: 16px;
+		text-align: center;
+		transition: background-color 0.3s ease;
+
+		&:hover {
+			background-color: var(--pink-light); /* Example lighter shade */
+		}
+	}
+
+	.copy-button button {
+		background-color: var(--blue); /* Example color */
+		&:hover {
+			background-color: var(--blue-light); /* Example lighter shade */
+		}
+	}
+
+	.link-button {
+		text-decoration: none;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: var(--green); /* Example color */
+		&:hover {
+			background-color: var(--green-light); /* Example lighter shade */
+		}
+	}
+}

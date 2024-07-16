@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { fetchDataFromApi } from './utils/api';
@@ -15,8 +15,6 @@ import Explore from './pages/explore/Explore';
 import PageNotFound from './pages/404/PageNotFound';
 
 function App() {
-	const { url } = useSelector((state) => state.home);
-	console.log(url);
 	const dispatch = useDispatch();
 
 	const fetchApiConfig = () => {
