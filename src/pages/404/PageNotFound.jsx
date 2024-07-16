@@ -50,12 +50,16 @@ const PageNotFound = () => {
 						<br />
 						That&apos;s an error
 					</h2>
-					<button className='backButton' onClick={() => router(-1)}>
-						Go back{' '}
-						<div className='icon'>
-							<FaArrowLeft />
+					<div>
+						<div className='button-parent'>
+							<button className='backButton' onClick={() => router(-1)}>
+								Go back{' '}
+								<div className='icon'>
+									<FaArrowLeft />
+								</div>
+							</button>
 						</div>
-					</button>
+					</div>
 				</div>
 			</div>
 		</div>
