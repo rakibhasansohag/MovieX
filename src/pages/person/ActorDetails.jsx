@@ -14,25 +14,28 @@ import Carousel from '../../components/carousel/Carousel';
 
 const ActorDetails = () => {
 	const [actor, setActor] = useState(null);
-	const [credits, setCredits] = useState(null);
 	const [showToaster, setShowToaster] = useState(false);
 
 	const { id } = useParams();
 	const { url } = useSelector((state) => state.home);
 
 	const { data, loading } = useFetch(`/person/${id}`);
-	const { data: creditsData } = useFetch(`/person/${id}/combined_credits`);
+	const { data: movieCredits, loading: movieLoading } = useFetch(
+		`/person/${id}/movie_credits`,
+	);
 
 	useEffect(() => {
 		setActor(data);
-		setCredits(creditsData);
-	}, [data, creditsData]);
+	}, [data]);
 
 	const handleCopy = () => {
 		navigator.clipboard.writeText(actor?.name);
 		setShowToaster(true);
 		setTimeout(() => setShowToaster(false), 3000);
 	};
+
+	const sortedMovieCredits =
+		movieCredits?.cast?.sort((a, b) => b.popularity - a.popularity) || [];
 
 	return (
 		<div className='actorDetails'>
@@ -102,14 +105,16 @@ const ActorDetails = () => {
 							</ContentWrapper>
 						</React.Fragment>
 					)}
-					{credits && (
-						<div className='carouselSection'>
-							<ContentWrapper>
-								<h3 className='HoverTitle'>Known For</h3>
-							</ContentWrapper>
-							<Carousel data={credits.cast} endpoint='movie' />
-						</div>
-					)}
+					<div className='carouselSection'>
+						<ContentWrapper>
+							<h3 className='HoverTitle'>Known For</h3>
+						</ContentWrapper>
+						<Carousel
+							data={sortedMovieCredits}
+							loading={movieLoading}
+							endpoint={'movie' || 'tv'}
+						/>
+					</div>
 				</>
 			) : (
 				<div className='detailsBannerSkeleton'>
