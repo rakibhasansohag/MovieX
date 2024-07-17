@@ -1,5 +1,9 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
+import {
+	BsFillArrowLeftCircleFill,
+	BsFillArrowRightCircleFill,
+} from 'react-icons/bs';
 
 import './videoSection.scss';
 
@@ -11,6 +15,21 @@ import Img from '../../../components/lazyLoadImage/Img';
 const VideosSection = ({ data, loading, video }) => {
 	const [show, setShow] = useState(false);
 	const [videoId, setVideoId] = useState(null);
+	const carouselContainer = useRef();
+
+	const navigation = (dir) => {
+		const container = carouselContainer.current;
+
+		const scrollAmount =
+			dir === 'left'
+				? container.scrollLeft - (container.offsetWidth + 20)
+				: container.scrollLeft + (container.offsetWidth + 20);
+
+		container.scrollTo({
+			left: scrollAmount,
+			behavior: 'smooth',
+		});
+	};
 
 	const loadingSkeleton = () => {
 		return (
@@ -32,37 +51,36 @@ const VideosSection = ({ data, loading, video }) => {
 			<ContentWrapper>
 				<div className='sectionHeading'>Official Videos</div>
 				{!loading ? (
-					<div className='videos'>
-						{data?.results?.length > 0
-							? data.results.map((video) => (
-									<div
-										onClick={() => handleVideoClick(video.key)}
-										key={video.id}
-										className='videoItem'
-									>
-										<div className='videoThumbnail'>
-											<Img
-												src={`https://img.youtube.com/vi/${video.key}/mqdefault.jpg`}
-											/>
-											<PlayIcon />
-										</div>
-										<p className='videoTitle'>{video?.name}</p>
-									</div>
-						))
-							: video && (
-									<div
-										onClick={() => handleVideoClick(video.key)}
-										className='videoItem'
-									>
-										<div className='videoThumbnail'>
-											<Img
-												src={`https://img.youtube.com/vi/${video.key}/mqdefault.jpg`}
-											/>
-											<PlayIcon />
-										</div>
-										<p className='videoTitle'>{video?.name}</p>
-									</div>
-)}
+					<div className='videos' ref={carouselContainer}>
+						{data?.results?.map((item) => (
+							<div
+								key={item.id}
+								className='videoItem'
+								onClick={() => handleVideoClick(item.key)}
+							>
+								<div className='videoThumbnail'>
+									<Img
+										src={`https://img.youtube.com/vi/${item.key}/mqdefault.jpg`}
+									/>
+									<PlayIcon />
+								</div>
+								<div className='videoTitle'>{item.name}</div>
+							</div>
+						))}
+						{!data?.results?.length && video && (
+							<div
+								className='videoItem'
+								onClick={() => handleVideoClick(video.key)}
+							>
+								<div className='videoThumbnail'>
+									<Img
+										src={`https://img.youtube.com/vi/${video.key}/mqdefault.jpg`}
+									/>
+									<PlayIcon />
+								</div>
+								<div className='videoTitle'>{video.name}</div>
+							</div>
+						)}
 					</div>
 				) : (
 					<div className='videoSkeleton'>
@@ -71,6 +89,18 @@ const VideosSection = ({ data, loading, video }) => {
 						{loadingSkeleton()}
 						{loadingSkeleton()}
 					</div>
+				)}
+				{data?.results?.length > 4 && (
+					<>
+						<BsFillArrowLeftCircleFill
+							className='carouselLeftNav arrow'
+							onClick={() => navigation('left')}
+						/>
+						<BsFillArrowRightCircleFill
+							className='carouselRightNav arrow'
+							onClick={() => navigation('right')}
+						/>
+					</>
 				)}
 			</ContentWrapper>
 			<VideoPopup
@@ -94,7 +124,10 @@ VideosSection.propTypes = {
 		),
 	}),
 	loading: PropTypes.bool.isRequired,
-	video: PropTypes.object,
+	video: PropTypes.shape({
+		key: PropTypes.string.isRequired,
+		name: PropTypes.string,
+	}),
 };
 
 export default VideosSection;
