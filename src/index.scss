@@ -71,7 +71,6 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	// background-color: rgba(0, 0, 0, 0.8);
 	background-color: #da2f68;
 	color: white;
 	padding: 15px 25px;
@@ -99,6 +98,10 @@ body {
 	100% {
 		opacity: 0;
 	}
+}
+
+.errorToaster {
+	background-color: red !important;
 }
 
 .button {
