@@ -100,9 +100,11 @@ const DetailsBanner = ({ video, crew }) => {
 									</div>
 									<div className='right'>
 										<div className='title'>
-											{`${name} (${dayjs(data?.release_date).format(
-												'YYYY',
-											)})  `}
+											{`${name} (${dayjs(
+												data?.release_date ||
+													data?.first_air_date ||
+													data?.last_air_date,
+											).format('YYYY')})  `}
 											<FaCopy className='button' onClick={handleCopy} />
 										</div>
 										<div className='subtitle'>{data?.tagline}</div>
@@ -132,20 +134,50 @@ const DetailsBanner = ({ video, crew }) => {
 											{data?.status && (
 												<div className='infoItem'>
 													<span className='text bold'>Status: </span>
-													<span className='text'>{data?.status}</span>
-												</div>
-											)}
-
-											{/* Release Date */}
-											{data?.release_date && (
-												<div className='infoItem'>
-													<span className='text bold'>Release Date: </span>
 													<span className='text'>
-														{dayjs(data?.release_date).format('MMM D, YYYY')}
+														{data?.status && 'Ended'
+															? 'Complete'
+															: data?.status}
 													</span>
 												</div>
 											)}
 
+											{/* Release Date */}
+											{data?.release_date ? (
+												<div className='infoItem'>
+													<span className='text bold'>Release Date: </span>
+													<span className='text'>
+														{dayjs(data.release_date).format('MMM D, YYYY')}
+													</span>
+												</div>
+											) : data?.first_air_date ? (
+												<div className='infoItem'>
+													<span className='text bold'>First Air Date: </span>
+													<span className='text'>
+														{dayjs(data.first_air_date).format('MMM D, YYYY')}
+													</span>
+												</div>
+											) : null}
+
+											{/* Point: Number of Seasons */}
+											{data?.number_of_seasons && (
+												<div className='infoItem'>
+													<span className='text bold'>Session: </span>
+													<span className='text'>
+														{data?.number_of_seasons}
+													</span>
+												</div>
+											)}
+
+											{/* Point: Number of Episodes */}
+											{data?.number_of_episodes && (
+												<div className='infoItem'>
+													<span className='text bold'>Episodes: </span>
+													<span className='text'>
+														{data?.number_of_episodes}
+													</span>
+												</div>
+											)}
 											{/* Runtime */}
 											{data?.runtime && (
 												<div className='infoItem'>
