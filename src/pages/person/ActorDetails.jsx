@@ -105,7 +105,7 @@ const ActorDetails = () => {
 					{credits && (
 						<div className='carouselSection'>
 							<ContentWrapper>
-								<span className='carouselTitle'>Known For</span>
+								<h3 className='HoverTitle'>Known For</h3>
 							</ContentWrapper>
 							<Carousel data={credits.cast} endpoint='movie' />
 						</div>

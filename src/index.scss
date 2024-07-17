@@ -109,3 +109,54 @@ body {
 		color: var(--pink);
 	}
 }
+
+// Hover Title
+.HoverTitle {
+	width: 180px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	color: white;
+	font-weight: 600;
+	font-size: 18px;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103);
+	position: relative;
+	overflow: hidden;
+	transition-duration: 0.3s;
+
+	.icon {
+		font-size: 20px;
+		position: relative;
+		z-index: 2;
+
+		&:hover {
+			color: var(--pink);
+		}
+	}
+
+	&::before {
+		content: '';
+		position: absolute;
+		width: 138px;
+		height: 180px;
+		background-color: white;
+		border-radius: 50%;
+		left: -100%;
+		top: 50%;
+		transform: translateY(-50%);
+		transition-duration: 0.3s;
+		mix-blend-mode: difference;
+	}
+
+	&:hover::before {
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	&:active {
+		transform: translate(5px, 5px);
+		transition-duration: 0.3s;
+	}
+}
