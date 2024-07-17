@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { FaCopy } from 'react-icons/fa';
+import { BsGlobeCentralSouthAsia } from 'react-icons/bs';
 
 import './actorDetails.scss';
 
@@ -11,7 +12,6 @@ import useFetch from '../../hooks/useFetch';
 import Img from '../../components/lazyLoadImage/Img.jsx';
 import PosterFallback from '../../assets/no-poster.png';
 import Carousel from '../../components/carousel/Carousel';
-import { BsGlobeCentralSouthAsia } from 'react-icons/bs';
 
 const ActorDetails = () => {
 	const [actor, setActor] = useState(null);
@@ -23,6 +23,9 @@ const ActorDetails = () => {
 	const { data, loading } = useFetch(`/person/${id}`);
 	const { data: movieCredits, loading: movieLoading } = useFetch(
 		`/person/${id}/movie_credits`,
+	);
+	const { data: tvCredits, loading: tvLoading } = useFetch(
+		`/person/${id}/tv_credits`,
 	);
 
 	useEffect(() => {
@@ -37,10 +40,8 @@ const ActorDetails = () => {
 
 	const sortedMovieCredits =
 		movieCredits?.cast?.sort((a, b) => b.popularity - a.popularity) || [];
-	console.log({
-		sortedMovieCredits,
-		actor,
-	});
+	const sortedTVCredits =
+		tvCredits?.cast?.sort((a, b) => b.popularity - a.popularity) || [];
 
 	return (
 		<div className='actorDetails'>
@@ -117,16 +118,30 @@ const ActorDetails = () => {
 							</ContentWrapper>
 						</React.Fragment>
 					)}
-					<div className='carouselSection'>
-						<ContentWrapper>
-							<h3 className='HoverTitle'>Known For</h3>
-						</ContentWrapper>
-						<Carousel
-							data={sortedMovieCredits}
-							loading={movieLoading}
-							endpoint={'movie' || 'tv'}
-						/>
-					</div>
+					{sortedMovieCredits.length > 0 && (
+						<div className='carouselSection'>
+							<ContentWrapper>
+								<h3 className='Title'>Known For (Movies)</h3>
+							</ContentWrapper>
+							<Carousel
+								data={sortedMovieCredits}
+								loading={movieLoading}
+								endpoint='movie'
+							/>
+						</div>
+					)}
+					{sortedTVCredits.length > 0 && (
+						<div className='carouselSection'>
+							<ContentWrapper>
+								<h3 className='Title'>TV Series</h3>
+							</ContentWrapper>
+							<Carousel
+								data={sortedTVCredits}
+								loading={tvLoading}
+								endpoint='tv'
+							/>
+						</div>
+					)}
 				</>
 			) : (
 				<div className='detailsBannerSkeleton'>
