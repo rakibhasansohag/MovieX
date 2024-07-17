@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import {
 	BsFillArrowLeftCircleFill,
 	BsFillArrowRightCircleFill,
@@ -7,6 +6,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
+import PropTypes from 'prop-types';
 
 import './carousel.scss';
 import ContentWrapper from '../contentWrapper/ContentWrapper';
@@ -15,7 +15,7 @@ import PosterFallback from '../../assets/no-poster.png';
 import CircleRating from '../circleRating/CircleRating';
 import Genres from '../genres/Genres';
 
-const Carousel = ({ data, loading, endpoint, title }) => {
+const Carousel = ({ data, loading, endPoint, title }) => {
 	const carouselContainer = useRef();
 	const { url } = useSelector((state) => state.home);
 	const navigate = useNavigate();
@@ -32,14 +32,18 @@ const Carousel = ({ data, loading, endpoint, title }) => {
 				? container.scrollLeft - (container.offsetWidth + 20)
 				: container.scrollLeft + (container.offsetWidth + 20);
 
+		const distance = Math.abs(container.scrollLeft - scrollAmount);
+		const duration = Math.min(distance * 0.5, 1000);
+
 		container.scrollTo({
 			left: scrollAmount,
 			behavior: 'smooth',
+			duration: duration,
 		});
 
 		setTimeout(() => {
 			setIsNavigating(false);
-		}, 500); // Adjust this value based on your scroll animation duration
+		}, duration);
 	};
 
 	const skItem = () => {
@@ -48,7 +52,7 @@ const Carousel = ({ data, loading, endpoint, title }) => {
 				<div className='posterBlock skeleton'></div>
 				<div className='textBlock'>
 					<div className='title skeleton'></div>
-					<div className='date skeleton'></div>
+					<div className='date  skeleton'></div>
 				</div>
 			</div>
 		);
@@ -57,7 +61,7 @@ const Carousel = ({ data, loading, endpoint, title }) => {
 	return (
 		<div className='carousel'>
 			<ContentWrapper>
-				{title && <div className='carouselTitle'>{title}</div>}
+				{title && <div className='carouselTitle'> {title} </div>}
 				<BsFillArrowLeftCircleFill
 					className='carouselLeftNav arrow'
 					onClick={() => navigation('left')}
@@ -69,9 +73,13 @@ const Carousel = ({ data, loading, endpoint, title }) => {
 				{!loading ? (
 					<div className='carouselItems' ref={carouselContainer}>
 						{data?.map((item) => {
+							// const posterUrl = item.poster_path
+							//   ? url.poster + item.poster_path
+							//   : PosterFallback;
+
 							const posterUrl =
 								item?.poster_path && url?.poster
-									? url.poster + item.poster_path
+									? url?.poster + item?.poster_path
 									: PosterFallback;
 
 							return (
@@ -79,20 +87,20 @@ const Carousel = ({ data, loading, endpoint, title }) => {
 									key={item.id}
 									className='carouselItem'
 									onClick={() =>
-										navigate(`/${item.media_type || endpoint}/${item.id}`)
+										navigate(`/${item?.media_type || endPoint}/${item?.id}`)
 									}
 								>
 									<div className='posterBlock'>
 										<Img src={posterUrl} />
 										<CircleRating rating={item.vote_average.toFixed(1)} />
-										<Genres data={item.genre_ids?.slice(0, 2)} />
+										<Genres data={item?.genre_ids.slice(0, 2)} />
 									</div>
 									<div className='textBlock'>
 										<span className='title'>
 											{item.title || item.name || item.original_name}
 										</span>
 										<span className='date'>
-											{dayjs(item.first_air_date || item.release_date).format(
+											{dayjs(item.first_air_date || item?.release_Date).format(
 												'MMM DD, YYYY',
 											)}
 										</span>
@@ -114,7 +122,6 @@ const Carousel = ({ data, loading, endpoint, title }) => {
 		</div>
 	);
 };
-
 Carousel.propTypes = {
 	data: PropTypes.arrayOf(
 		PropTypes.shape({
@@ -131,8 +138,7 @@ Carousel.propTypes = {
 		}),
 	),
 	loading: PropTypes.bool.isRequired,
-	endpoint: PropTypes.string.isRequired,
+	endPoint: PropTypes.string.isRequired,
 	title: PropTypes.string,
 };
-
 export default Carousel;
