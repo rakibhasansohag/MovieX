@@ -48,8 +48,10 @@ const Header = () => {
 	const navigationHandler = (type) => {
 		if (type === 'movie') {
 			navigate(`/explore/movie`);
-		} else {
+		} else if (type === 'tv') {
 			navigate(`/explore/tv`);
+		} else {
+			navigate(`/explore/kdrama`);
 		}
 		setMobileMenu(false);
 	};
@@ -98,6 +100,10 @@ const Header = () => {
 					<img src={logo} alt='' />
 				</div>
 				<ul className='menuItems'>
+					<li className='menuItem' onClick={() => navigationHandler('kdrama')}>
+						K Drama
+					</li>
+
 					<li className='menuItem' onClick={() => navigationHandler('movie')}>
 						Movies
 					</li>

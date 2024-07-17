@@ -14,6 +14,7 @@ import SearchResult from './pages/searchResult/SearchResult';
 import Explore from './pages/explore/Explore';
 import PageNotFound from './pages/404/PageNotFound';
 import ActorDetails from './pages/person/ActorDetails';
+import ExploreKDrama from './pages/explore/ExploreKDrama';
 
 function App() {
 	const dispatch = useDispatch();
@@ -63,6 +64,7 @@ function App() {
 				<Route path='/:mediaType/:id' element={<Detail />} />
 				<Route path='/search/:query' element={<SearchResult />} />
 				<Route path='/explore/:mediaType' element={<Explore />} />
+				<Route path='/explore/kdrama' element={<ExploreKDrama />} />
 				<Route path='*' element={<PageNotFound />} />
 			</Routes>
 			<Footer />
