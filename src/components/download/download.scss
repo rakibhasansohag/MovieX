@@ -12,20 +12,20 @@
 		border-radius: 8px;
 		cursor: pointer;
 		color: white;
-		background-color: var(--pink); /* Example color */
+		background-color: var(--pink);
 		font-size: 16px;
 		text-align: center;
 		transition: background-color 0.3s ease;
 
 		&:hover {
-			background-color: var(--pink-light); /* Example lighter shade */
+			background-color: var(--pink-light);
 		}
 	}
 
 	.copy-button button {
-		background-color: var(--blue); /* Example color */
+		background-color: var(--blue);
 		&:hover {
-			background-color: var(--blue-light); /* Example lighter shade */
+			background-color: var(--blue-light);
 		}
 	}
 
@@ -34,9 +34,9 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background-color: var(--green); /* Example color */
+		background-color: var(--green);
 		&:hover {
-			background-color: var(--green-light); /* Example lighter shade */
+			background-color: var(--green-light);
 		}
 	}
 }

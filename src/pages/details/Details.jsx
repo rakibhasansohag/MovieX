@@ -12,8 +12,6 @@ import PageNotFound from '../404/PageNotFound';
 function Details() {
 	const { id, mediaType } = useParams();
 
-	console.log(id, mediaType);
-
 	const { data, loading } = useFetch(`/${mediaType}/${id}/videos`);
 	const { data: credits, loading: creditsLoading } = useFetch(
 		`/${mediaType}/${id}/credits`,

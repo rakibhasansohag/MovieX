@@ -13,6 +13,7 @@ import Detail from './pages/details/Details';
 import SearchResult from './pages/searchResult/SearchResult';
 import Explore from './pages/explore/Explore';
 import PageNotFound from './pages/404/PageNotFound';
+import ActorDetails from './pages/person/ActorDetails';
 
 function App() {
 	const dispatch = useDispatch();
@@ -58,6 +59,7 @@ function App() {
 			<Header />
 			<Routes>
 				<Route path='/' element={<Home />} />
+				<Route path='/person/:id' element={<ActorDetails />} />
 				<Route path='/:mediaType/:id' element={<Detail />} />
 				<Route path='/search/:query' element={<SearchResult />} />
 				<Route path='/explore/:mediaType' element={<Explore />} />

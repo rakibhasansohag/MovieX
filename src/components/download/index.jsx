@@ -1,6 +1,7 @@
-import './style.scss';
 import { useParams } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
+
+import './download.scss';
 
 const DownloadComponent = () => {
 	const { id, mediaType } = useParams();
