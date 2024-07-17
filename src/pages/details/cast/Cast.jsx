@@ -34,7 +34,7 @@ const Cast = ({ cast, loading }) => {
 
 	if (cast.length === 0) return null;
 
-	console.log(cast);
+	// console.log(cast);
 
 	const goToActorPage = (id) => {
 		navigate(`/person/${id}`);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { FaCopy } from 'react-icons/fa';
@@ -11,6 +11,7 @@ import useFetch from '../../hooks/useFetch';
 import Img from '../../components/lazyLoadImage/Img.jsx';
 import PosterFallback from '../../assets/no-poster.png';
 import Carousel from '../../components/carousel/Carousel';
+import { BsGlobeCentralSouthAsia } from 'react-icons/bs';
 
 const ActorDetails = () => {
 	const [actor, setActor] = useState(null);
@@ -36,6 +37,10 @@ const ActorDetails = () => {
 
 	const sortedMovieCredits =
 		movieCredits?.cast?.sort((a, b) => b.popularity - a.popularity) || [];
+	console.log({
+		sortedMovieCredits,
+		actor,
+	});
 
 	return (
 		<div className='actorDetails'>
@@ -97,6 +102,13 @@ const ActorDetails = () => {
 													<span className='text'>
 														{actor.popularity.toFixed(2)}
 													</span>
+												</div>
+											)}
+											{actor?.homepage && (
+												<div className='infoItem'>
+													<Link to={actor?.homepage} className='text bold link'>
+														<BsGlobeCentralSouthAsia className='icon' /> Website
+													</Link>
 												</div>
 											)}
 										</div>
