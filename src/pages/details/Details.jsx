@@ -24,6 +24,8 @@ function Details() {
 		return <PageNotFound />;
 	}
 
+	console.log({ data, credits });
+
 	return (
 		<div>
 			<DetailsBanner video={data?.results?.[0]} crew={credits?.crew} />
@@ -31,7 +33,7 @@ function Details() {
 			<VideosSection data={data} loading={loading} video={data?.results?.[0]} />
 			<DownloadComponent data={credits} loading={loading} />
 			<Similar mediaType={mediaType} id={id} />
-			<Recommendation mediaType={mediaType} id={id} />
+			<Recommendation mediaType={mediaType} id={id}  />
 		</div>
 	);
 }
