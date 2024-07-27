@@ -6,20 +6,10 @@ import useFetch from '../../../hooks/useFetch';
 const Recommendation = ({ mediaType, id }) => {
 	const { data, loading } = useFetch(`/${mediaType}/${id}/recommendations`);
 
-	const { data: detailsData, loading: detailsLoading } = useFetch(
-		`/${mediaType}/${id}`,
-	);
-
 	const { data: recommendationMovie, loading: recommendationLoading } =
-		useFetch(
-			`/${mediaType}/airing_today?language=${
-				detailsData?.languages[0] || 'en-US'
-			}`,
-		);
+		useFetch(`/tv/airing_today?language=en-US`);
 
-	const allLoading = loading || recommendationLoading | detailsLoading;
-
-	console.log(detailsData);
+	const allLoading = loading || recommendationLoading;
 
 	return (
 		<>
@@ -42,7 +32,9 @@ const Recommendation = ({ mediaType, id }) => {
 							endpoint={'movie'}
 						/>
 					) : (
-						<p>No recommendations or top rated movies available.</p>
+						<p>
+							No recommendations or Airing Today movies or tv series available.
+						</p>
 					)}
 				</div>
 			)}
