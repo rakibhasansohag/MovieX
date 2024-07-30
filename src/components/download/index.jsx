@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 
 import './download.scss';
@@ -40,6 +40,9 @@ const DownloadComponent = () => {
 				<button disabled={loading} className='link-button'>
 					IMDb
 				</button>
+			</div>
+			<div>
+				<Link to={`/download/${mediaType}/${id}`}>Circle Download</Link>
 			</div>
 		</div>
 	);

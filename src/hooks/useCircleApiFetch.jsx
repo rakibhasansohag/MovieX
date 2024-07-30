@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchDataFromCircleEApi } from '../utils/api';
 
-const useNewApiFetch = (endpoint) => {
+const useCircleApiFetch = (endpoint) => {
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -11,7 +11,8 @@ const useNewApiFetch = (endpoint) => {
 			try {
 				setLoading(true);
 				const result = await fetchDataFromCircleEApi(endpoint);
-				setData(result);
+				// setData(result);
+				setData(Array.isArray(result) ? result : [result]);
 			} catch (err) {
 				setError(err.message || 'An error occurred');
 			} finally {
@@ -25,4 +26,4 @@ const useNewApiFetch = (endpoint) => {
 	return { data, loading, error };
 };
 
-export default useNewApiFetch;
+export default useCircleApiFetch;
