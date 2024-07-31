@@ -3,6 +3,7 @@ import HeroBanner from './heroBanner/HeroBanner';
 import Trending from './trending/Trending';
 import Popular from './popular/Popular';
 import TopRated from './topRated/TopRated';
+import CircleCards from './CircleFtp/circleCards';
 
 function Home() {
 	return (
@@ -11,6 +12,7 @@ function Home() {
 			<Trending />
 			<Popular />
 			<TopRated />
+			<CircleCards />
 		</div>
 	);
 }
